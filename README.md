@@ -11,7 +11,7 @@ View, edit, timestamp supported.
 Manual register and search players.
 
 ## Sponsor AreoCraft
-refer (https://areocraft.zhangrx.top/)[AreoCraft's Official Website]
+refer ［AreoCraft's Official Website](https://areocraft.zhangrx.top/)
 
 ## Notice
 Some part of this project's code is AIGC(Artificial Intelligence Generated Content)
