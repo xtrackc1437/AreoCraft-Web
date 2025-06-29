@@ -21,10 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db = new PDO('sqlite:s:/web/dev/acwc-b1.0/areocraft.db');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $stmt = $db->prepare('UPDATE news SET title = :title, content = :content, updated_at = :updated_at WHERE id = :id');
+        $original_link = $_POST['original_link'] ?? '';
+        $stmt = $db->prepare('UPDATE news SET title = :title, content = :content, updated_at = :updated_at, original_link = :original_link WHERE id = :id');
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':content', $content);
         $stmt->bindParam(':updated_at', $updated_at);
+        $stmt->bindParam(':original_link', $original_link);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
@@ -106,6 +108,10 @@ try {
                     <div class="mdui-textfield">
                         <label class="mdui-textfield-label">内容</label>
                         <textarea class="mdui-textfield-input" name="content"><?php echo htmlspecialchars($news['content']); ?></textarea>
+                    </div>
+                    <div class="mdui-textfield">
+                        <label class="mdui-textfield-label">阅读原文链接</label>
+                        <input class="mdui-textfield-input" type="text" name="original_link" value="<?php echo htmlspecialchars($news['original_link'] ?? ''); ?>">
                     </div>
                     <button type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">保存</button>
                 </form>

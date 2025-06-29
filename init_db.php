@@ -9,7 +9,8 @@ try {
         title TEXT NOT NULL,
         content TEXT NOT NULL,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-        updated_at TEXT
+        updated_at TEXT,
+        original_link TEXT
     )");
 
     // 创建管理员表

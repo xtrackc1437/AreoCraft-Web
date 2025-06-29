@@ -56,19 +56,27 @@ if (!isset($_SESSION['admin'])) {
                     $db = new PDO('sqlite:s:/web/dev/acwc-b1.0/areocraft.db');
                     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
-                    $stmt = $db->query('SELECT id, title, created_at, updated_at FROM news ORDER BY id DESC');
+                    $stmt = $db->query('SELECT id, title, created_at, updated_at, original_link FROM news ORDER BY id DESC');
                     $news = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     if ($news) {
                         echo '<table class="mdui-table mdui-table-hoverable">';
-                        echo '<thead><tr><th>标题</th><th>发布时间</th><th>修改时间</th><th>操作</th></tr></thead>';
+                        echo '<thead><tr><th>标题</th><th>发布时间</th><th>修改时间</th><th>阅读原文</th><th>操作</th></tr></thead>';
                         echo '<tbody>';
                         foreach ($news as $item) {
                             echo '<tr>';
                             echo '<td>'. $item['title'] . '</td>';
                             echo '<td>'. $item['created_at'] . '</td>';
                             echo '<td>'. ($item['updated_at'] ? $item['updated_at'] : '无') . '</td>';
-                            echo '<td><a href="edit_news.php?id='. $item['id'] .'" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-btn-dense">修改</a></td>';
+                            if (!empty($item['original_link'])) {
+                                echo '<td><a href="'. $item['original_link'] .'" target="_blank" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-btn-dense">阅读原文</a></td>';
+                            } else {
+                                echo '<td>无</td>';
+                            }
+                            echo '<td>';
+                            echo '<a href="edit_news.php?id='. $item['id'] .'" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-btn-dense">修改</a> ';
+                            echo '<a href="delete_news.php?id='. $item['id'] .'" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red mdui-btn-dense" onclick="return confirm(\'确定要删除这条新闻吗？\')">删除</a>';
+                            echo '</td>';
                             echo '</tr>';
                         }
                         echo '</tbody>';

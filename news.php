@@ -22,13 +22,14 @@
     </header>
 
     <main class="mdui-container mdui-m-t-2">
-        <h2 class="mdui-text-center">最新消息</h2>
+        <h2 class="mdui-text-center">新闻页面</h2>
+        <p class="mdui-text-center">简单实现的新闻页面。需要更详细的新闻请查看<a>AreoCraft Posts</a>。</p>
         <?php
         try {
             $db = new PDO('sqlite:s:/web/dev/acwc-b1.0/areocraft.db');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
-            $stmt = $db->query('SELECT *, updated_at FROM news ORDER BY id DESC');
+            $stmt = $db->query('SELECT *, updated_at, original_link FROM news ORDER BY id DESC');
             $news = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($news as $item) {
@@ -40,6 +41,9 @@
                 echo '<div class="mdui-card-content">' . $item['content'] . '</div>';
                 if ($item['updated_at']) {
                     echo '<div class="mdui-card-content"><i class="mdui-text-color-grey-500">已修改，最后修改时间: ' . $item['updated_at'] . '</i></div>';
+                }
+                if (!empty($item['original_link'])) {
+                    echo '<div class="mdui-card-content"><a href="' . $item['original_link'] . '" target="_blank" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-btn-dense">阅读原文</a></div>';
                 }
                 echo '</div>';
             }
