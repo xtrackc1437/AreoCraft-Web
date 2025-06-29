@@ -9,3 +9,9 @@ Use text and images to advertise minecraft server.
 View, edit, timestamp supported.
 ### Players management
 Manual register and search players.
+
+## Sponsor AreoCraft
+refer (https://areocraft.zhangrx.top/)[AreoCraft's Official Website]
+
+## Notice
+Some part of this project's code is AIGC(Artificial Intelligence Generated Content)
