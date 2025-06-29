@@ -1,0 +1,13 @@
+/* 可添加全局自定义样式 */
+
+body {
+    padding-top: 64px;
+}
+
+.mdui-card {
+    margin-bottom: 16px;
+}
+
+.mdui-textfield {
+    margin-bottom: 16px;
+}
