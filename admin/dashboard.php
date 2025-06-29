@@ -34,7 +34,7 @@ try {
         </div>
     </header>
 
-    <div class="mdui-drawer" id="drawer">
+    <div class="mdui-drawer mdui-drawer-close" id="drawer">
         <ul class="mdui-list">
             <li class="mdui-list-item mdui-ripple">
                 <a href="dashboard.php">仪表盘</a>
@@ -46,7 +46,7 @@ try {
                 <a href="player_register.php">玩家登记</a>
             </li>
             <li class="mdui-list-item mdui-ripple">
-                <a href="player_search.php">玩家查询</a>
+                <a href="news_management.php">新闻管理</a>
             </li>
         </ul>
     </div>
@@ -86,18 +86,6 @@ try {
                             
                             echo '<p>最新发布时间: '. $latest_news_time .'</p>';
                             echo '<p>共计新闻数: '. $news_count .'</p>';
-                            
-                            // 获取所有新闻用于显示修改链接
-                            $stmt = $db->query('SELECT id, title FROM news ORDER BY id DESC');
-                            $all_news = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            if ($all_news) {
-                                echo '<p>新闻列表:</p>';
-                                echo '<ul>';
-                                foreach ($all_news as $news) {
-                                    echo '<li>'. $news['title'] . ' <a href="edit_news.php?id='. $news['id'] .'" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-btn-dense">修改</a></li>';
-                                }
-                                echo '</ul>';
-                            }
                         } catch (PDOException $e) {
                             echo '<div class="mdui-alert mdui-color-red">数据库错误: '. $e->getMessage() .'</div>';
                         }
@@ -134,48 +122,36 @@ try {
             <div class="mdui-col-md-12">
                 <div class="mdui-card">
                     <div class="mdui-card-primary">
-                        <div class="mdui-card-primary-title">玩家查询</div>
+                        <div class="mdui-card-primary-title">管理员操作</div>
                     </div>
                     <div class="mdui-card-content">
-                        <form method="get">
+                        <form method="post">
                             <div class="mdui-textfield">
-                                <label class="mdui-textfield-label">搜索玩家</label>
-                                <input class="mdui-textfield-input" type="text" name="search">
+                                <label class="mdui-textfield-label">新密码</label>
+                                <input class="mdui-textfield-input" type="password" name="new_password" required>
                             </div>
-                            <button type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">查询</button>
+                            <button type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">修改密码</button>
                         </form>
                         
                         <?php
-                        try {
-                            $db = new PDO('sqlite:s:\web\dev\acwc-b1.0\areocraft.db');
-                            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                            
-                            $search = isset($_GET['search']) ? '%' . $_GET['search'] . '%' : '%';
-                            $stmt = $db->prepare('SELECT * FROM players WHERE username LIKE :search');
-                            $stmt->bindParam(':search', $search);
-                            $stmt->execute();
-                            $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            
-                            if ($players) {
-                                echo '<table class="mdui-table mdui-table-hoverable">';
-                                echo '<thead><tr><th>ID</th><th>用户名</th><th>登记时间</th></tr></thead>';
-                                echo '<tbody>';
-                                foreach ($players as $player) {
-                                    echo '<tr>';
-                                    echo '<td>' . $player['id'] . '</td>';
-                                    echo '<td>' . $player['username'] . '</td>';
-                                    echo '<td>' . $player['registered_at'] . '</td>';
-                                    echo '</tr>';
-                                }
-                                echo '</tbody>';
-                                echo '</table>';
-                            } else {
-                                echo '<div class="mdui-alert mdui-color-grey">未找到玩家记录</div>';
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_password'])) {
+                            $new_password = $_POST['new_password'];
+                            try {
+                                $db = new PDO('sqlite:s:/web/dev/acwc-b1.0/areocraft.db');
+                                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+                                $stmt = $db->prepare('UPDATE admins SET password = :password WHERE username = :username');
+                                $stmt->bindValue(':password', $hashed_password);
+                                $stmt->bindValue(':username', $_SESSION['admin']);
+                                $stmt->execute();
+                                echo '<div class="mdui-alert mdui-color-green">密码修改成功</div>';
+                            } catch (PDOException $e) {
+                                echo '<div class="mdui-alert mdui-color-red">数据库错误: '. $e->getMessage() . '</div>';
                             }
-                        } catch (PDOException $e) {
-                            echo '<div class="mdui-alert mdui-color-red">数据库错误: ' . $e->getMessage() . '</div>';
                         }
                         ?>
+                        <a href="admin_account_management.php" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">管理员账号管理</a>
+                        <a href="logout.php" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">退出登录</a>
                     </div>
                 </div>
             </div>
