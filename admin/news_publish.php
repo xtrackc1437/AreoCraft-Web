@@ -39,6 +39,9 @@ if (!isset($_SESSION['admin'])) {
             <li class="mdui-list-item mdui-ripple">
                 <a href="player_search.php">玩家查询</a>
             </li>
+            <li class="mdui-list-item mdui-ripple">
+                <a href="news_management.php">新闻管理</a>
+            </li>
         </ul>
     </div>
 
@@ -54,7 +57,7 @@ if (!isset($_SESSION['admin'])) {
                         <input class="mdui-textfield-input" type="text" name="title" required>
                     </div>
                     <div class="mdui-textfield">
-                        <label class="mdui-textfield-label">新闻内容（支持 Markdown）</label>
+                        <label class="mdui-textfield-label">新闻内容（支持 HTML）</label>
                         <textarea class="mdui-textfield-input" name="content" required></textarea>
                     </div>
                     <button type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">发布</button>

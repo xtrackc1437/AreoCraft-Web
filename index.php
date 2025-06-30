@@ -16,6 +16,7 @@
             <div class="mdui-toolbar-spacer"></div>
             <a href="news.php" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">article</i></a>
             <a href="admin/login.php" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">admin_panel_settings</i></a>
+            <a href="#" class="mdui-btn mdui-btn-icon" onclick="toggleDarkMode()"><i class="mdui-icon material-icons">brightness_6</i></a>
         </div>
     </header>
     <div class="mdui-drawer" id="drawer">
@@ -53,7 +54,7 @@
                         <div class="mdui-card-primary-title">服务器宣传</div>
                     </div>
                     <div class="mdui-card-content">
-                        <p>这里可以放置更多服务器宣传文案</p>
+                        <p>宣传文案区</p>
                         <img src="static/images/promo1.jpg" alt="宣传图1" class="mdui-img-fluid">
                         <img src="static/images/promo2.jpg" alt="宣传图2" class="mdui-img-fluid mdui-m-t-2">
                     </div>
@@ -80,8 +81,9 @@
                         <div class="mdui-card-primary-title">服务器信息</div>
                     </div>
                     <div class="mdui-card-content">
-                        <p>IP: areocraft.example.com</p>
-                        <p>版本: 1.19.4</p>
+                        <p>IP: 150.138.77.119:59918</p>
+                        <p>版本: MinecraftJE 1.21.6 (追逐天空)</p>
+                        <p>当前状态：<b><span style="color:green;">正常运行</span></b></p>
                     </div>
                 </div>
             </div>
@@ -91,8 +93,8 @@
                         <div class="mdui-card-primary-title">加入我们</div>
                     </div>
                     <div class="mdui-card-content">
-                        <p>点击下方按钮加入 Discord 社区</p>
-                        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">加入社区</button>
+                        <p>点击下方按钮加入 官方QQ群</p>
+                        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">加入群聊</button>
                     </div>
                 </div>
             </div>
@@ -100,5 +102,13 @@
     </main>
 
     <script src="static/js/mdui.min.js"></script>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('mdui-theme-layout-dark');
+            const icon = document.querySelector('[onclick="toggleDarkMode()"] i');
+            icon.textContent = body.classList.contains('mdui-theme-layout-dark') ? 'light_mode' : 'dark_mode';
+        }
+    </script>
 </body>
 </html>

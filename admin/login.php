@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+    <header class="mdui-appbar mdui-appbar-fixed">
+        <div class="mdui-toolbar mdui-color-theme">
+            <a href="../index.php" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">arrow_back</i></a>
+            <a href="#" class="mdui-typo-title">管理员登录</a>
+            <div class="mdui-toolbar-spacer"></div>
+            <a href="#" class="mdui-btn mdui-btn-icon" onclick="toggleDarkMode()"><i class="mdui-icon material-icons">brightness_6</i></a>
+        </div>
+    </header>
     <div class="mdui-container mdui-valign">
         <div class="mdui-row">
             <div class="mdui-col-md-4 mdui-col-offset-md-4">
@@ -33,6 +41,7 @@
                                 if ($admin && password_verify($password, $admin['password'])) {
                                     session_start();
                                     $_SESSION['admin'] = $username;
+                                    $_SESSION['permission'] = $admin['permission'];
                                     header('Location: dashboard.php');
                                     exit;
                                 } else {
@@ -61,5 +70,13 @@
     </div>
 
     <script src="../static/js/mdui.min.js"></script>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('mdui-theme-layout-dark');
+            const icon = document.querySelector('[onclick="toggleDarkMode()"] i');
+            icon.textContent = body.classList.contains('mdui-theme-layout-dark') ? 'light_mode' : 'dark_mode';
+        }
+    </script>
 </body>
 </html>

@@ -39,6 +39,9 @@ if (!isset($_SESSION['admin'])) {
             <li class="mdui-list-item mdui-ripple">
                 <a href="player_search.php">玩家查询</a>
             </li>
+            <li class="mdui-list-item mdui-ripple">
+                <a href="news_management.php">新闻管理</a>
+            </li>
         </ul>
     </div>
 

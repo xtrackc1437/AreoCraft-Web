@@ -27,23 +27,24 @@ try {
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
     <header class="mdui-appbar mdui-appbar-fixed">
         <div class="mdui-toolbar mdui-color-theme">
-            <a href="#" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+            <a href="#" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#drawer', overlay: true, swipe: true, closeOnClickOverlay: true}"><i class="mdui-icon material-icons">menu</i></a>
             <a href="#" class="mdui-typo-title">管理员仪表盘</a>
             <div class="mdui-toolbar-spacer"></div>
             <a href="logout.php" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">logout</i></a>
+            <a href="#" class="mdui-btn mdui-btn-icon" onclick="toggleDarkMode()"><i class="mdui-icon material-icons">brightness_6</i></a>
         </div>
     </header>
 
-    <div class="mdui-drawer mdui-drawer-close" id="drawer">
+    <div class="mdui-drawer" id="drawer">
         <ul class="mdui-list">
-            <li class="mdui-list-item mdui-ripple">
-                <a href="dashboard.php">仪表盘</a>
-            </li>
             <li class="mdui-list-item mdui-ripple">
                 <a href="news_publish.php">新闻发布</a>
             </li>
             <li class="mdui-list-item mdui-ripple">
                 <a href="player_register.php">玩家登记</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <a href="player_search.php">玩家查询</a>
             </li>
             <li class="mdui-list-item mdui-ripple">
                 <a href="news_management.php">新闻管理</a>
@@ -159,5 +160,13 @@ try {
     </main>
 
     <script src="../static/js/mdui.min.js"></script>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('mdui-theme-layout-dark');
+            const icon = document.querySelector('[onclick="toggleDarkMode()"] i');
+            icon.textContent = body.classList.contains('mdui-theme-layout-dark') ? 'light_mode' : 'dark_mode';
+        }
+    </script>
 </body>
 </html>

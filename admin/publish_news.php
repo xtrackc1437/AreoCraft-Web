@@ -22,6 +22,7 @@ if (!isset($_SESSION['admin'])) {
             <a href="#" class="mdui-typo-title">发布新闻</a>
             <div class="mdui-toolbar-spacer"></div>
             <a href="logout.php" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">logout</i></a>
+            <a href="#" class="mdui-btn mdui-btn-icon" onclick="toggleDarkMode()"><i class="mdui-icon material-icons">brightness_6</i></a>
         </div>
     </header>
     
@@ -38,6 +39,9 @@ if (!isset($_SESSION['admin'])) {
             </li>
             <li class="mdui-list-item mdui-ripple">
                 <a href="player_search.php">玩家查询</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <a href="news_management.php">新闻管理</a>
             </li>
         </ul>
     </div>
@@ -71,8 +75,17 @@ if (!isset($_SESSION['admin'])) {
     </main>
 
     <script src="../static/js/mdui.min.js"></script>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('mdui-theme-layout-dark');
+            const icon = document.querySelector('[onclick="toggleDarkMode()"] i');
+            icon.textContent = body.classList.contains('mdui-theme-layout-dark') ? 'light_mode' : 'dark_mode';
+        }
+    </script>
 </body>
 </html>
+<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $content = $_POST['content'];
@@ -94,3 +107,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '数据库错误: ' . $e->getMessage();
     }
 }
+?>
