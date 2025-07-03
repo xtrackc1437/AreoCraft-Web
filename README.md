@@ -10,6 +10,9 @@ View, edit, timestamp supported.
 ### Players management
 Manual register and search players.
 
+## Environment
+PHP(8.0.4), SQLite3, MDUI(Frontend Library)
+
 ## Sponsor AreoCraft
 refer [AreoCraft's Official Website](https://areocraft.zhangrx.top/)
 
