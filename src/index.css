@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  @apply font-sans text-gray-900 bg-white dark:text-gray-100 dark:bg-gray-900 w-full;
+}
+
+html {
+  @apply w-full overflow-x-hidden;
+}
+
+.container { @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-none; }
+
+body {
+  @apply min-h-screen overflow-x-hidden m-0;
+}
